@@ -1,0 +1,1608 @@
+tests/common/test_batch_collator.py .                                    [  0%]
+tests/common/test_meter.py .                                             [  0%]
+tests/common/test_report.py ...                                          [  2%]
+tests/common/test_sample.py .....                                        [  4%]
+tests/configs/test_configs_for_keys.py ..                                [  5%]
+tests/configs/test_zoo_urls.py .F                                        [  6%]
+tests/datasets/test_base_dataset.py .                                    [  7%]
+tests/datasets/test_bert_processors.py .                                 [  7%]
+tests/datasets/test_iteration_strategies.py .....                        [ 10%]
+tests/datasets/test_mmf_dataset_builder.py ...                           [ 11%]
+tests/datasets/test_multi_dataset_loader.py ..                           [ 12%]
+tests/datasets/test_prediction_processors.py .                           [ 12%]
+tests/datasets/test_processors.py .....                                  [ 15%]
+tests/models/test_albef.py .                                             [ 15%]
+tests/models/test_cnn_lstm.py .                                          [ 16%]
+tests/models/test_mmbt.py ......                                         [ 19%]
+tests/models/test_mmf_transformer.py ..............                                                                                    [ 25%]
+tests/models/test_vilbert.py ....                                                                                                      [ 27%]
+tests/models/test_visual_bert.py ...                                                                                                   [ 29%]
+tests/models/interfaces/test_interfaces.py .                                                                                           [ 29%]
+tests/models/transformers/test_heads.py ...                                                                                            [ 31%]
+tests/modules/test_encoders.py .........                                                                                               [ 35%]
+tests/modules/test_fusions.py ..........                                                                                               [ 40%]
+tests/modules/test_layers.py .....                                                                                                     [ 42%]
+tests/modules/test_losses.py .......                                                                                                   [ 46%]
+tests/modules/test_metrics.py ...........................                                                                              [ 59%]
+tests/modules/test_optimizers.py ..                                                                                                    [ 60%]
+tests/trainers/test_device.py .                                                                                                        [ 60%]
+tests/trainers/test_eval_loop.py .                                                                                                     [ 61%]
+tests/trainers/test_fp16.py ..                                                                                                         [ 62%]
+tests/trainers/test_sharded_ddp.py ss                                                                                                  [ 62%]
+tests/trainers/test_training_loop.py .........                                                                                         [ 67%]
+tests/trainers/callbacks/test_logistics.py ....                                                                                        [ 69%]
+tests/trainers/callbacks/test_lr_scheduler.py .                                                                                        [ 69%]
+tests/trainers/callbacks/test_user_callback.py .                                                                                       [ 70%]
+tests/trainers/lightning/test_checkpoint.py ...........                                                                                [ 75%]
+tests/trainers/lightning/test_grad_accumulate.py .                                                                                     [ 75%]
+tests/trainers/lightning/test_grad_clipping.py .                                                                                       [ 76%]
+tests/trainers/lightning/test_logging.py .                                                                                             [ 76%]
+tests/trainers/lightning/test_loop_conditions.py ...                                                                                   [ 78%]
+tests/trainers/lightning/test_loss.py .                                                                                                [ 78%]
+tests/trainers/lightning/test_lr_schedule.py ..                                                                                        [ 79%]
+tests/trainers/lightning/test_validation.py ..                                                                                         [ 80%]
+tests/utils/test_checkpoint.py .........                                                                                               [ 85%]
+tests/utils/test_configuration.py ..                                                                                                   [ 86%]
+tests/utils/test_distributed.py .                                                                                                      [ 86%]
+tests/utils/test_download.py ...                                                                                                       [ 87%]
+tests/utils/test_env.py .....                                                                                                          [ 90%]
+tests/utils/test_file_io.py ....                                                                                                       [ 92%]
+tests/utils/test_general.py ..                                                                                                         [ 93%]
+tests/utils/test_logger.py ..                                                                                                          [ 94%]
+tests/utils/test_quality_checks.py ..                                                                                                  [ 95%]
+tests/utils/test_text.py ......                                                                                                        [ 98%]
+tests/utils/test_timer.py ...                                                                                                          [ 99%]
+tests/utils/test_visualize.py .                                                                                                        [100%]
+
+================================================================== FAILURES ==================================================================
+________________________________________________________ TestConfigsForKeys.test_zoos ________________________________________________________
+
+self = <urllib3.connection.HTTPConnection object at 0x7fb0cdf93c10>
+
+    def _new_conn(self):
+        """Establish a socket connection and set nodelay settings on it.
+    
+        :return: New socket connection.
+        """
+        extra_kw = {}
+        if self.source_address:
+            extra_kw["source_address"] = self.source_address
+    
+        if self.socket_options:
+            extra_kw["socket_options"] = self.socket_options
+    
+        try:
+            conn = connection.create_connection(
+>               (self._dns_host, self.port), self.timeout, **extra_kw
+            )
+
+../anaconda3/envs/mmf/lib/python3.7/site-packages/urllib3/connection.py:160: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+address = ('lisi1.unal.edu.co', 80), timeout = None, source_address = None, socket_options = [(6, 1, 1)]
+
+    def create_connection(
+        address,
+        timeout=socket._GLOBAL_DEFAULT_TIMEOUT,
+        source_address=None,
+        socket_options=None,
+    ):
+        """Connect to *address* and return the socket object.
+    
+        Convenience function.  Connect to *address* (a 2-tuple ``(host,
+        port)``) and return the socket object.  Passing the optional
+        *timeout* parameter will set the timeout on the socket instance
+        before attempting to connect.  If no *timeout* is supplied, the
+        global default timeout setting returned by :func:`getdefaulttimeout`
+        is used.  If *source_address* is set it must be a tuple of (host, port)
+        for the socket to bind as a source address before making the connection.
+        An host of '' or port 0 tells the OS to use the default.
+        """
+    
+        host, port = address
+        if host.startswith("["):
+            host = host.strip("[]")
+        err = None
+    
+        # Using the value from allowed_gai_family() in the context of getaddrinfo lets
+        # us select whether to work with IPv4 DNS records, IPv6 records, or both.
+        # The original create_connection function always returns all records.
+        family = allowed_gai_family()
+    
+        for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+            af, socktype, proto, canonname, sa = res
+            sock = None
+            try:
+                sock = socket.socket(af, socktype, proto)
+    
+                # If provided, set socket level options before connecting.
+                _set_socket_options(sock, socket_options)
+    
+                if timeout is not socket._GLOBAL_DEFAULT_TIMEOUT:
+                    sock.settimeout(timeout)
+                if source_address:
+                    sock.bind(source_address)
+                sock.connect(sa)
+                return sock
+    
+            except socket.error as e:
+                err = e
+                if sock is not None:
+                    sock.close()
+                    sock = None
+    
+        if err is not None:
+>           raise err
+
+../anaconda3/envs/mmf/lib/python3.7/site-packages/urllib3/util/connection.py:84: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+address = ('lisi1.unal.edu.co', 80), timeout = None, source_address = None, socket_options = [(6, 1, 1)]
+
+    def create_connection(
+        address,
+        timeout=socket._GLOBAL_DEFAULT_TIMEOUT,
+        source_address=None,
+        socket_options=None,
+    ):
+        """Connect to *address* and return the socket object.
+    
+        Convenience function.  Connect to *address* (a 2-tuple ``(host,
+        port)``) and return the socket object.  Passing the optional
+        *timeout* parameter will set the timeout on the socket instance
+        before attempting to connect.  If no *timeout* is supplied, the
+        global default timeout setting returned by :func:`getdefaulttimeout`
+        is used.  If *source_address* is set it must be a tuple of (host, port)
+        for the socket to bind as a source address before making the connection.
+        An host of '' or port 0 tells the OS to use the default.
+        """
+    
+        host, port = address
+        if host.startswith("["):
+            host = host.strip("[]")
+        err = None
+    
+        # Using the value from allowed_gai_family() in the context of getaddrinfo lets
+        # us select whether to work with IPv4 DNS records, IPv6 records, or both.
+        # The original create_connection function always returns all records.
+        family = allowed_gai_family()
+    
+        for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+            af, socktype, proto, canonname, sa = res
+            sock = None
+            try:
+                sock = socket.socket(af, socktype, proto)
+    
+                # If provided, set socket level options before connecting.
+                _set_socket_options(sock, socket_options)
+    
+                if timeout is not socket._GLOBAL_DEFAULT_TIMEOUT:
+                    sock.settimeout(timeout)
+                if source_address:
+                    sock.bind(source_address)
+>               sock.connect(sa)
+E               TimeoutError: [Errno 110] Connection timed out
+
+../anaconda3/envs/mmf/lib/python3.7/site-packages/urllib3/util/connection.py:74: TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+self = <urllib3.connectionpool.HTTPConnectionPool object at 0x7fb0cdf94450>, method = 'HEAD', url = '/mmimdb/mmimdb.tar.gz', body = None
+headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'}
+retries = Retry(total=0, connect=None, read=False, redirect=None, status=None), redirect = False, assert_same_host = False
+timeout = Timeout(connect=None, read=None, total=None), pool_timeout = None, release_conn = False, chunked = False, body_pos = None
+response_kw = {'decode_content': False, 'preload_content': False}, conn = None, release_this_conn = True, err = None, clean_exit = False
+timeout_obj = Timeout(connect=None, read=None, total=None), is_new_proxy_conn = False
+
+    def urlopen(
+        self,
+        method,
+        url,
+        body=None,
+        headers=None,
+        retries=None,
+        redirect=True,
+        assert_same_host=True,
+        timeout=_Default,
+        pool_timeout=None,
+        release_conn=None,
+        chunked=False,
+        body_pos=None,
+        **response_kw
+    ):
+        """
+        Get a connection from the pool and perform an HTTP request. This is the
+        lowest level call for making a request, so you'll need to specify all
+        the raw details.
+    
+        .. note::
+    
+           More commonly, it's appropriate to use a convenience method provided
+           by :class:`.RequestMethods`, such as :meth:`request`.
+    
+        .. note::
+    
+           `release_conn` will only behave as expected if
+           `preload_content=False` because we want to make
+           `preload_content=False` the default behaviour someday soon without
+           breaking backwards compatibility.
+    
+        :param method:
+            HTTP request method (such as GET, POST, PUT, etc.)
+    
+        :param body:
+            Data to send in the request body (useful for creating
+            POST requests, see HTTPConnectionPool.post_url for
+            more convenience).
+    
+        :param headers:
+            Dictionary of custom headers to send, such as User-Agent,
+            If-None-Match, etc. If None, pool headers are used. If provided,
+            these headers completely replace any pool-specific headers.
+    
+        :param retries:
+            Configure the number of retries to allow before raising a
+            :class:`~urllib3.exceptions.MaxRetryError` exception.
+    
+            Pass ``None`` to retry until you receive a response. Pass a
+            :class:`~urllib3.util.retry.Retry` object for fine-grained control
+            over different types of retries.
+            Pass an integer number to retry connection errors that many times,
+            but no other types of errors. Pass zero to never retry.
+    
+            If ``False``, then retries are disabled and any exception is raised
+            immediately. Also, instead of raising a MaxRetryError on redirects,
+            the redirect response will be returned.
+    
+        :type retries: :class:`~urllib3.util.retry.Retry`, False, or an int.
+    
+        :param redirect:
+            If True, automatically handle redirects (status codes 301, 302,
+            303, 307, 308). Each redirect counts as a retry. Disabling retries
+            will disable redirect, too.
+    
+        :param assert_same_host:
+            If ``True``, will make sure that the host of the pool requests is
+            consistent else will raise HostChangedError. When False, you can
+            use the pool on an HTTP proxy and request foreign hosts.
+    
+        :param timeout:
+            If specified, overrides the default timeout for this one
+            request. It may be a float (in seconds) or an instance of
+            :class:`urllib3.util.Timeout`.
+    
+        :param pool_timeout:
+            If set and the pool is set to block=True, then this method will
+            block for ``pool_timeout`` seconds and raise EmptyPoolError if no
+            connection is available within the time period.
+    
+        :param release_conn:
+            If False, then the urlopen call will not release the connection
+            back into the pool once a response is received (but will release if
+            you read the entire contents of the response such as when
+            `preload_content=True`). This is useful if you're not preloading
+            the response's content immediately. You will need to call
+            ``r.release_conn()`` on the response ``r`` to return the connection
+            back into the pool. If None, it takes the value of
+            ``response_kw.get('preload_content', True)``.
+    
+        :param chunked:
+            If True, urllib3 will send the body using chunked transfer
+            encoding. Otherwise, urllib3 will send the body using the standard
+            content-length form. Defaults to False.
+    
+        :param int body_pos:
+            Position to seek to in file-like body in the event of a retry or
+            redirect. Typically this won't need to be set because urllib3 will
+            auto-populate the value when needed.
+    
+        :param \\**response_kw:
+            Additional parameters are passed to
+            :meth:`urllib3.response.HTTPResponse.from_httplib`
+        """
+        if headers is None:
+            headers = self.headers
+    
+        if not isinstance(retries, Retry):
+            retries = Retry.from_int(retries, redirect=redirect, default=self.retries)
+    
+        if release_conn is None:
+            release_conn = response_kw.get("preload_content", True)
+    
+        # Check host
+        if assert_same_host and not self.is_same_host(url):
+            raise HostChangedError(self, url, retries)
+    
+        # Ensure that the URL we're connecting to is properly encoded
+        if url.startswith("/"):
+            url = six.ensure_str(_encode_target(url))
+        else:
+            url = six.ensure_str(parse_url(url).url)
+    
+        conn = None
+    
+        # Track whether `conn` needs to be released before
+        # returning/raising/recursing. Update this variable if necessary, and
+        # leave `release_conn` constant throughout the function. That way, if
+        # the function recurses, the original value of `release_conn` will be
+        # passed down into the recursive call, and its value will be respected.
+        #
+        # See issue #651 [1] for details.
+        #
+        # [1] <https://github.com/urllib3/urllib3/issues/651>
+        release_this_conn = release_conn
+    
+        # Merge the proxy headers. Only do this in HTTP. We have to copy the
+        # headers dict so we can safely change it without those changes being
+        # reflected in anyone else's copy.
+        if self.scheme == "http":
+            headers = headers.copy()
+            headers.update(self.proxy_headers)
+    
+        # Must keep the exception bound to a separate variable or else Python 3
+        # complains about UnboundLocalError.
+        err = None
+    
+        # Keep track of whether we cleanly exited the except block. This
+        # ensures we do proper cleanup in finally.
+        clean_exit = False
+    
+        # Rewind body position, if needed. Record current position
+        # for future rewinds in the event of a redirect/retry.
+        body_pos = set_file_position(body, body_pos)
+    
+        try:
+            # Request a connection from the queue.
+            timeout_obj = self._get_timeout(timeout)
+            conn = self._get_conn(timeout=pool_timeout)
+    
+            conn.timeout = timeout_obj.connect_timeout
+    
+            is_new_proxy_conn = self.proxy is not None and not getattr(
+                conn, "sock", None
+            )
+            if is_new_proxy_conn:
+                self._prepare_proxy(conn)
+    
+            # Make the request on the httplib connection object.
+            httplib_response = self._make_request(
+                conn,
+                method,
+                url,
+                timeout=timeout_obj,
+                body=body,
+                headers=headers,
+>               chunked=chunked,
+            )
+
+../anaconda3/envs/mmf/lib/python3.7/site-packages/urllib3/connectionpool.py:677: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <urllib3.connectionpool.HTTPConnectionPool object at 0x7fb0cdf94450>
+conn = <urllib3.connection.HTTPConnection object at 0x7fb0cdf93c10>, method = 'HEAD', url = '/mmimdb/mmimdb.tar.gz'
+timeout = Timeout(connect=None, read=None, total=None), chunked = False
+httplib_request_kw = {'body': None, 'headers': {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, l...) Chrome/77.0.3865.90 Safari/537.36', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'}}
+timeout_obj = Timeout(connect=None, read=None, total=None)
+
+    def _make_request(
+        self, conn, method, url, timeout=_Default, chunked=False, **httplib_request_kw
+    ):
+        """
+        Perform a request on a given urllib connection object taken from our
+        pool.
+    
+        :param conn:
+            a connection from one of our connection pools
+    
+        :param timeout:
+            Socket timeout in seconds for the request. This can be a
+            float or integer, which will set the same timeout value for
+            the socket connect and the socket read, or an instance of
+            :class:`urllib3.util.Timeout`, which gives you more fine-grained
+            control over your timeouts.
+        """
+        self.num_requests += 1
+    
+        timeout_obj = self._get_timeout(timeout)
+        timeout_obj.start_connect()
+        conn.timeout = timeout_obj.connect_timeout
+    
+        # Trigger any extra validation we need to do.
+        try:
+            self._validate_conn(conn)
+        except (SocketTimeout, BaseSSLError) as e:
+            # Py2 raises this as a BaseSSLError, Py3 raises it as socket timeout.
+            self._raise_timeout(err=e, url=url, timeout_value=conn.timeout)
+            raise
+    
+        # conn.request() calls httplib.*.request, not the method in
+        # urllib3.request. It also calls makefile (recv) on the socket.
+        if chunked:
+            conn.request_chunked(method, url, **httplib_request_kw)
+        else:
+>           conn.request(method, url, **httplib_request_kw)
+
+../anaconda3/envs/mmf/lib/python3.7/site-packages/urllib3/connectionpool.py:392: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <urllib3.connection.HTTPConnection object at 0x7fb0cdf93c10>, method = 'HEAD', url = '/mmimdb/mmimdb.tar.gz', body = None
+headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'}
+
+    def request(self, method, url, body=None, headers={}, *,
+                encode_chunked=False):
+        """Send a complete request to the server."""
+>       self._send_request(method, url, body, headers, encode_chunked)
+
+../anaconda3/envs/mmf/lib/python3.7/http/client.py:1281: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <urllib3.connection.HTTPConnection object at 0x7fb0cdf93c10>, method = 'HEAD', url = '/mmimdb/mmimdb.tar.gz', body = None
+headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'}
+encode_chunked = False
+
+    def _send_request(self, method, url, body, headers, encode_chunked):
+        # Honor explicitly requested Host: and Accept-Encoding: headers.
+        header_names = frozenset(k.lower() for k in headers)
+        skips = {}
+        if 'host' in header_names:
+            skips['skip_host'] = 1
+        if 'accept-encoding' in header_names:
+            skips['skip_accept_encoding'] = 1
+    
+        self.putrequest(method, url, **skips)
+    
+        # chunked encoding will happen if HTTP/1.1 is used and either
+        # the caller passes encode_chunked=True or the following
+        # conditions hold:
+        # 1. content-length has not been explicitly set
+        # 2. the body is a file or iterable, but not a str or bytes-like
+        # 3. Transfer-Encoding has NOT been explicitly set by the caller
+    
+        if 'content-length' not in header_names:
+            # only chunk body if not explicitly set for backwards
+            # compatibility, assuming the client code is already handling the
+            # chunking
+            if 'transfer-encoding' not in header_names:
+                # if content-length cannot be automatically determined, fall
+                # back to chunked encoding
+                encode_chunked = False
+                content_length = self._get_content_length(body, method)
+                if content_length is None:
+                    if body is not None:
+                        if self.debuglevel > 0:
+                            print('Unable to determine size of %r' % body)
+                        encode_chunked = True
+                        self.putheader('Transfer-Encoding', 'chunked')
+                else:
+                    self.putheader('Content-Length', str(content_length))
+        else:
+            encode_chunked = False
+    
+        for hdr, value in headers.items():
+            self.putheader(hdr, value)
+        if isinstance(body, str):
+            # RFC 2616 Section 3.7.1 says that text default has a
+            # default charset of iso-8859-1.
+            body = _encode(body, 'body')
+>       self.endheaders(body, encode_chunked=encode_chunked)
+
+../anaconda3/envs/mmf/lib/python3.7/http/client.py:1327: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <urllib3.connection.HTTPConnection object at 0x7fb0cdf93c10>, message_body = None
+
+    def endheaders(self, message_body=None, *, encode_chunked=False):
+        """Indicate that the last header line has been sent to the server.
+    
+        This method sends the request to the server.  The optional message_body
+        argument can be used to pass a message body associated with the
+        request.
+        """
+        if self.__state == _CS_REQ_STARTED:
+            self.__state = _CS_REQ_SENT
+        else:
+            raise CannotSendHeader()
+>       self._send_output(message_body, encode_chunked=encode_chunked)
+
+../anaconda3/envs/mmf/lib/python3.7/http/client.py:1276: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <urllib3.connection.HTTPConnection object at 0x7fb0cdf93c10>, message_body = None, encode_chunked = False
+
+    def _send_output(self, message_body=None, encode_chunked=False):
+        """Send the currently buffered request and clear the buffer.
+    
+        Appends an extra \\r\\n to the buffer.
+        A message_body may be specified, to be appended to the request.
+        """
+        self._buffer.extend((b"", b""))
+        msg = b"\r\n".join(self._buffer)
+        del self._buffer[:]
+>       self.send(msg)
+
+../anaconda3/envs/mmf/lib/python3.7/http/client.py:1036: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <urllib3.connection.HTTPConnection object at 0x7fb0cdf93c10>
+data = b'HEAD /mmimdb/mmimdb.tar.gz HTTP/1.1\r\nHost: lisi1.unal.edu.co\r\nUser-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X...) Chrome/77.0.3865.90 Safari/537.36\r\nAccept-Encoding: gzip, deflate\r\nAccept: */*\r\nConnection: keep-alive\r\n\r\n'
+
+    def send(self, data):
+        """Send `data' to the server.
+        ``data`` can be a string object, a bytes object, an array object, a
+        file-like object that supports a .read() method, or an iterable object.
+        """
+    
+        if self.sock is None:
+            if self.auto_open:
+>               self.connect()
+
+../anaconda3/envs/mmf/lib/python3.7/http/client.py:976: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <urllib3.connection.HTTPConnection object at 0x7fb0cdf93c10>
+
+    def connect(self):
+>       conn = self._new_conn()
+
+../anaconda3/envs/mmf/lib/python3.7/site-packages/urllib3/connection.py:187: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <urllib3.connection.HTTPConnection object at 0x7fb0cdf93c10>
+
+    def _new_conn(self):
+        """Establish a socket connection and set nodelay settings on it.
+    
+        :return: New socket connection.
+        """
+        extra_kw = {}
+        if self.source_address:
+            extra_kw["source_address"] = self.source_address
+    
+        if self.socket_options:
+            extra_kw["socket_options"] = self.socket_options
+    
+        try:
+            conn = connection.create_connection(
+                (self._dns_host, self.port), self.timeout, **extra_kw
+            )
+    
+        except SocketTimeout:
+            raise ConnectTimeoutError(
+                self,
+                "Connection to %s timed out. (connect timeout=%s)"
+                % (self.host, self.timeout),
+            )
+    
+        except SocketError as e:
+            raise NewConnectionError(
+>               self, "Failed to establish a new connection: %s" % e
+            )
+E           urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x7fb0cdf93c10>: Failed to establish a new connection: [Errno 110] Connection timed out
+
+../anaconda3/envs/mmf/lib/python3.7/site-packages/urllib3/connection.py:172: NewConnectionError
+
+During handling of the above exception, another exception occurred:
+
+self = <requests.adapters.HTTPAdapter object at 0x7fb0cdf94990>, request = <PreparedRequest [HEAD]>, stream = False
+timeout = Timeout(connect=None, read=None, total=None), verify = True, cert = None, proxies = OrderedDict()
+
+    def send(self, request, stream=False, timeout=None, verify=True, cert=None, proxies=None):
+        """Sends PreparedRequest object. Returns Response object.
+    
+        :param request: The :class:`PreparedRequest <PreparedRequest>` being sent.
+        :param stream: (optional) Whether to stream the request content.
+        :param timeout: (optional) How long to wait for the server to send
+            data before giving up, as a float, or a :ref:`(connect timeout,
+            read timeout) <timeouts>` tuple.
+        :type timeout: float or tuple or urllib3 Timeout object
+        :param verify: (optional) Either a boolean, in which case it controls whether
+            we verify the server's TLS certificate, or a string, in which case it
+            must be a path to a CA bundle to use
+        :param cert: (optional) Any user-provided SSL certificate to be trusted.
+        :param proxies: (optional) The proxies dictionary to apply to the request.
+        :rtype: requests.Response
+        """
+    
+        try:
+            conn = self.get_connection(request.url, proxies)
+        except LocationValueError as e:
+            raise InvalidURL(e, request=request)
+    
+        self.cert_verify(conn, request.url, verify, cert)
+        url = self.request_url(request, proxies)
+        self.add_headers(request, stream=stream, timeout=timeout, verify=verify, cert=cert, proxies=proxies)
+    
+        chunked = not (request.body is None or 'Content-Length' in request.headers)
+    
+        if isinstance(timeout, tuple):
+            try:
+                connect, read = timeout
+                timeout = TimeoutSauce(connect=connect, read=read)
+            except ValueError as e:
+                # this may raise a string formatting error.
+                err = ("Invalid timeout {}. Pass a (connect, read) "
+                       "timeout tuple, or a single float to set "
+                       "both timeouts to the same value".format(timeout))
+                raise ValueError(err)
+        elif isinstance(timeout, TimeoutSauce):
+            pass
+        else:
+            timeout = TimeoutSauce(connect=timeout, read=timeout)
+    
+        try:
+            if not chunked:
+                resp = conn.urlopen(
+                    method=request.method,
+                    url=url,
+                    body=request.body,
+                    headers=request.headers,
+                    redirect=False,
+                    assert_same_host=False,
+                    preload_content=False,
+                    decode_content=False,
+                    retries=self.max_retries,
+>                   timeout=timeout
+                )
+
+../anaconda3/envs/mmf/lib/python3.7/site-packages/requests/adapters.py:449: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <urllib3.connectionpool.HTTPConnectionPool object at 0x7fb0cdf94450>, method = 'HEAD', url = '/mmimdb/mmimdb.tar.gz', body = None
+headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'}
+retries = Retry(total=0, connect=None, read=False, redirect=None, status=None), redirect = False, assert_same_host = False
+timeout = Timeout(connect=None, read=None, total=None), pool_timeout = None, release_conn = False, chunked = False, body_pos = None
+response_kw = {'decode_content': False, 'preload_content': False}, conn = None, release_this_conn = True, err = None, clean_exit = False
+timeout_obj = Timeout(connect=None, read=None, total=None), is_new_proxy_conn = False
+
+    def urlopen(
+        self,
+        method,
+        url,
+        body=None,
+        headers=None,
+        retries=None,
+        redirect=True,
+        assert_same_host=True,
+        timeout=_Default,
+        pool_timeout=None,
+        release_conn=None,
+        chunked=False,
+        body_pos=None,
+        **response_kw
+    ):
+        """
+        Get a connection from the pool and perform an HTTP request. This is the
+        lowest level call for making a request, so you'll need to specify all
+        the raw details.
+    
+        .. note::
+    
+           More commonly, it's appropriate to use a convenience method provided
+           by :class:`.RequestMethods`, such as :meth:`request`.
+    
+        .. note::
+    
+           `release_conn` will only behave as expected if
+           `preload_content=False` because we want to make
+           `preload_content=False` the default behaviour someday soon without
+           breaking backwards compatibility.
+    
+        :param method:
+            HTTP request method (such as GET, POST, PUT, etc.)
+    
+        :param body:
+            Data to send in the request body (useful for creating
+            POST requests, see HTTPConnectionPool.post_url for
+            more convenience).
+    
+        :param headers:
+            Dictionary of custom headers to send, such as User-Agent,
+            If-None-Match, etc. If None, pool headers are used. If provided,
+            these headers completely replace any pool-specific headers.
+    
+        :param retries:
+            Configure the number of retries to allow before raising a
+            :class:`~urllib3.exceptions.MaxRetryError` exception.
+    
+            Pass ``None`` to retry until you receive a response. Pass a
+            :class:`~urllib3.util.retry.Retry` object for fine-grained control
+            over different types of retries.
+            Pass an integer number to retry connection errors that many times,
+            but no other types of errors. Pass zero to never retry.
+    
+            If ``False``, then retries are disabled and any exception is raised
+            immediately. Also, instead of raising a MaxRetryError on redirects,
+            the redirect response will be returned.
+    
+        :type retries: :class:`~urllib3.util.retry.Retry`, False, or an int.
+    
+        :param redirect:
+            If True, automatically handle redirects (status codes 301, 302,
+            303, 307, 308). Each redirect counts as a retry. Disabling retries
+            will disable redirect, too.
+    
+        :param assert_same_host:
+            If ``True``, will make sure that the host of the pool requests is
+            consistent else will raise HostChangedError. When False, you can
+            use the pool on an HTTP proxy and request foreign hosts.
+    
+        :param timeout:
+            If specified, overrides the default timeout for this one
+            request. It may be a float (in seconds) or an instance of
+            :class:`urllib3.util.Timeout`.
+    
+        :param pool_timeout:
+            If set and the pool is set to block=True, then this method will
+            block for ``pool_timeout`` seconds and raise EmptyPoolError if no
+            connection is available within the time period.
+    
+        :param release_conn:
+            If False, then the urlopen call will not release the connection
+            back into the pool once a response is received (but will release if
+            you read the entire contents of the response such as when
+            `preload_content=True`). This is useful if you're not preloading
+            the response's content immediately. You will need to call
+            ``r.release_conn()`` on the response ``r`` to return the connection
+            back into the pool. If None, it takes the value of
+            ``response_kw.get('preload_content', True)``.
+    
+        :param chunked:
+            If True, urllib3 will send the body using chunked transfer
+            encoding. Otherwise, urllib3 will send the body using the standard
+            content-length form. Defaults to False.
+    
+        :param int body_pos:
+            Position to seek to in file-like body in the event of a retry or
+            redirect. Typically this won't need to be set because urllib3 will
+            auto-populate the value when needed.
+    
+        :param \\**response_kw:
+            Additional parameters are passed to
+            :meth:`urllib3.response.HTTPResponse.from_httplib`
+        """
+        if headers is None:
+            headers = self.headers
+    
+        if not isinstance(retries, Retry):
+            retries = Retry.from_int(retries, redirect=redirect, default=self.retries)
+    
+        if release_conn is None:
+            release_conn = response_kw.get("preload_content", True)
+    
+        # Check host
+        if assert_same_host and not self.is_same_host(url):
+            raise HostChangedError(self, url, retries)
+    
+        # Ensure that the URL we're connecting to is properly encoded
+        if url.startswith("/"):
+            url = six.ensure_str(_encode_target(url))
+        else:
+            url = six.ensure_str(parse_url(url).url)
+    
+        conn = None
+    
+        # Track whether `conn` needs to be released before
+        # returning/raising/recursing. Update this variable if necessary, and
+        # leave `release_conn` constant throughout the function. That way, if
+        # the function recurses, the original value of `release_conn` will be
+        # passed down into the recursive call, and its value will be respected.
+        #
+        # See issue #651 [1] for details.
+        #
+        # [1] <https://github.com/urllib3/urllib3/issues/651>
+        release_this_conn = release_conn
+    
+        # Merge the proxy headers. Only do this in HTTP. We have to copy the
+        # headers dict so we can safely change it without those changes being
+        # reflected in anyone else's copy.
+        if self.scheme == "http":
+            headers = headers.copy()
+            headers.update(self.proxy_headers)
+    
+        # Must keep the exception bound to a separate variable or else Python 3
+        # complains about UnboundLocalError.
+        err = None
+    
+        # Keep track of whether we cleanly exited the except block. This
+        # ensures we do proper cleanup in finally.
+        clean_exit = False
+    
+        # Rewind body position, if needed. Record current position
+        # for future rewinds in the event of a redirect/retry.
+        body_pos = set_file_position(body, body_pos)
+    
+        try:
+            # Request a connection from the queue.
+            timeout_obj = self._get_timeout(timeout)
+            conn = self._get_conn(timeout=pool_timeout)
+    
+            conn.timeout = timeout_obj.connect_timeout
+    
+            is_new_proxy_conn = self.proxy is not None and not getattr(
+                conn, "sock", None
+            )
+            if is_new_proxy_conn:
+                self._prepare_proxy(conn)
+    
+            # Make the request on the httplib connection object.
+            httplib_response = self._make_request(
+                conn,
+                method,
+                url,
+                timeout=timeout_obj,
+                body=body,
+                headers=headers,
+                chunked=chunked,
+            )
+    
+            # If we're going to release the connection in ``finally:``, then
+            # the response doesn't need to know about the connection. Otherwise
+            # it will also try to release it and we'll have a double-release
+            # mess.
+            response_conn = conn if not release_conn else None
+    
+            # Pass method to Response for length checking
+            response_kw["request_method"] = method
+    
+            # Import httplib's response into our own wrapper object
+            response = self.ResponseCls.from_httplib(
+                httplib_response,
+                pool=self,
+                connection=response_conn,
+                retries=retries,
+                **response_kw
+            )
+    
+            # Everything went great!
+            clean_exit = True
+    
+        except EmptyPoolError:
+            # Didn't get a connection from the pool, no need to clean up
+            clean_exit = True
+            release_this_conn = False
+            raise
+    
+        except (
+            TimeoutError,
+            HTTPException,
+            SocketError,
+            ProtocolError,
+            BaseSSLError,
+            SSLError,
+            CertificateError,
+        ) as e:
+            # Discard the connection for these exceptions. It will be
+            # replaced during the next _get_conn() call.
+            clean_exit = False
+            if isinstance(e, (BaseSSLError, CertificateError)):
+                e = SSLError(e)
+            elif isinstance(e, (SocketError, NewConnectionError)) and self.proxy:
+                e = ProxyError("Cannot connect to proxy.", e)
+            elif isinstance(e, (SocketError, HTTPException)):
+                e = ProtocolError("Connection aborted.", e)
+    
+            retries = retries.increment(
+>               method, url, error=e, _pool=self, _stacktrace=sys.exc_info()[2]
+            )
+
+../anaconda3/envs/mmf/lib/python3.7/site-packages/urllib3/connectionpool.py:727: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = Retry(total=0, connect=None, read=False, redirect=None, status=None), method = 'HEAD', url = '/mmimdb/mmimdb.tar.gz', response = None
+error = NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fb0cdf93c10>: Failed to establish a new connection: [Errno 110] Connection timed out')
+_pool = <urllib3.connectionpool.HTTPConnectionPool object at 0x7fb0cdf94450>, _stacktrace = <traceback object at 0x7fb0ce1585a0>
+
+    def increment(
+        self,
+        method=None,
+        url=None,
+        response=None,
+        error=None,
+        _pool=None,
+        _stacktrace=None,
+    ):
+        """Return a new Retry object with incremented retry counters.
+    
+        :param response: A response object, or None, if the server did not
+            return a response.
+        :type response: :class:`~urllib3.response.HTTPResponse`
+        :param Exception error: An error encountered during the request, or
+            None if the response was received successfully.
+    
+        :return: A new ``Retry`` object.
+        """
+        if self.total is False and error:
+            # Disabled, indicate to re-raise the error.
+            raise six.reraise(type(error), error, _stacktrace)
+    
+        total = self.total
+        if total is not None:
+            total -= 1
+    
+        connect = self.connect
+        read = self.read
+        redirect = self.redirect
+        status_count = self.status
+        cause = "unknown"
+        status = None
+        redirect_location = None
+    
+        if error and self._is_connection_error(error):
+            # Connect retry?
+            if connect is False:
+                raise six.reraise(type(error), error, _stacktrace)
+            elif connect is not None:
+                connect -= 1
+    
+        elif error and self._is_read_error(error):
+            # Read retry?
+            if read is False or not self._is_method_retryable(method):
+                raise six.reraise(type(error), error, _stacktrace)
+            elif read is not None:
+                read -= 1
+    
+        elif response and response.get_redirect_location():
+            # Redirect retry?
+            if redirect is not None:
+                redirect -= 1
+            cause = "too many redirects"
+            redirect_location = response.get_redirect_location()
+            status = response.status
+    
+        else:
+            # Incrementing because of a server error like a 500 in
+            # status_forcelist and a the given method is in the whitelist
+            cause = ResponseError.GENERIC_ERROR
+            if response and response.status:
+                if status_count is not None:
+                    status_count -= 1
+                cause = ResponseError.SPECIFIC_ERROR.format(status_code=response.status)
+                status = response.status
+    
+        history = self.history + (
+            RequestHistory(method, url, error, status, redirect_location),
+        )
+    
+        new_retry = self.new(
+            total=total,
+            connect=connect,
+            read=read,
+            redirect=redirect,
+            status=status_count,
+            history=history,
+        )
+    
+        if new_retry.is_exhausted():
+>           raise MaxRetryError(_pool, url, error or ResponseError(cause))
+E           urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='lisi1.unal.edu.co', port=80): Max retries exceeded with url: /mmimdb/mmimdb.tar.gz (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fb0cdf93c10>: Failed to establish a new connection: [Errno 110] Connection timed out'))
+
+../anaconda3/envs/mmf/lib/python3.7/site-packages/urllib3/util/retry.py:446: MaxRetryError
+
+During handling of the above exception, another exception occurred:
+
+self = <tests.configs.test_zoo_urls.TestConfigsForKeys testMethod=test_zoos>
+
+    @skip_if_no_network
+    @skip_if_macos
+    def test_zoos(self):
+>       self._test_all_zoos(callback=self._check_download)
+
+tests/configs/test_zoo_urls.py:64: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/configs/test_zoo_urls.py:58: in _test_all_zoos
+    self._test_zoo("configs/zoo/datasets.yaml", callback=callback)
+tests/configs/test_zoo_urls.py:55: in _test_zoo
+    self._recurse_on_config(zoo_config, callback=callback)
+tests/configs/test_zoo_urls.py:33: in _recurse_on_config
+    self._recurse_on_config(config[item], callback=callback)
+tests/configs/test_zoo_urls.py:33: in _recurse_on_config
+    self._recurse_on_config(config[item], callback=callback)
+tests/configs/test_zoo_urls.py:33: in _recurse_on_config
+    self._recurse_on_config(config[item], callback=callback)
+tests/configs/test_zoo_urls.py:22: in _recurse_on_config
+    callback(download)
+tests/configs/test_zoo_urls.py:39: in _check_download
+    check_header(download._url, from_google=download._from_google)
+mmf/utils/download.py:325: in check_header
+    response = session.head(url, allow_redirects=True, headers=headers)
+../anaconda3/envs/mmf/lib/python3.7/site-packages/requests/sessions.py:565: in head
+    return self.request('HEAD', url, **kwargs)
+../anaconda3/envs/mmf/lib/python3.7/site-packages/requests/sessions.py:530: in request
+    resp = self.send(prep, **send_kwargs)
+../anaconda3/envs/mmf/lib/python3.7/site-packages/requests/sessions.py:643: in send
+    r = adapter.send(request, **kwargs)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <requests.adapters.HTTPAdapter object at 0x7fb0cdf94990>, request = <PreparedRequest [HEAD]>, stream = False
+timeout = Timeout(connect=None, read=None, total=None), verify = True, cert = None, proxies = OrderedDict()
+
+    def send(self, request, stream=False, timeout=None, verify=True, cert=None, proxies=None):
+        """Sends PreparedRequest object. Returns Response object.
+    
+        :param request: The :class:`PreparedRequest <PreparedRequest>` being sent.
+        :param stream: (optional) Whether to stream the request content.
+        :param timeout: (optional) How long to wait for the server to send
+            data before giving up, as a float, or a :ref:`(connect timeout,
+            read timeout) <timeouts>` tuple.
+        :type timeout: float or tuple or urllib3 Timeout object
+        :param verify: (optional) Either a boolean, in which case it controls whether
+            we verify the server's TLS certificate, or a string, in which case it
+            must be a path to a CA bundle to use
+        :param cert: (optional) Any user-provided SSL certificate to be trusted.
+        :param proxies: (optional) The proxies dictionary to apply to the request.
+        :rtype: requests.Response
+        """
+    
+        try:
+            conn = self.get_connection(request.url, proxies)
+        except LocationValueError as e:
+            raise InvalidURL(e, request=request)
+    
+        self.cert_verify(conn, request.url, verify, cert)
+        url = self.request_url(request, proxies)
+        self.add_headers(request, stream=stream, timeout=timeout, verify=verify, cert=cert, proxies=proxies)
+    
+        chunked = not (request.body is None or 'Content-Length' in request.headers)
+    
+        if isinstance(timeout, tuple):
+            try:
+                connect, read = timeout
+                timeout = TimeoutSauce(connect=connect, read=read)
+            except ValueError as e:
+                # this may raise a string formatting error.
+                err = ("Invalid timeout {}. Pass a (connect, read) "
+                       "timeout tuple, or a single float to set "
+                       "both timeouts to the same value".format(timeout))
+                raise ValueError(err)
+        elif isinstance(timeout, TimeoutSauce):
+            pass
+        else:
+            timeout = TimeoutSauce(connect=timeout, read=timeout)
+    
+        try:
+            if not chunked:
+                resp = conn.urlopen(
+                    method=request.method,
+                    url=url,
+                    body=request.body,
+                    headers=request.headers,
+                    redirect=False,
+                    assert_same_host=False,
+                    preload_content=False,
+                    decode_content=False,
+                    retries=self.max_retries,
+                    timeout=timeout
+                )
+    
+            # Send the request.
+            else:
+                if hasattr(conn, 'proxy_pool'):
+                    conn = conn.proxy_pool
+    
+                low_conn = conn._get_conn(timeout=DEFAULT_POOL_TIMEOUT)
+    
+                try:
+                    low_conn.putrequest(request.method,
+                                        url,
+                                        skip_accept_encoding=True)
+    
+                    for header, value in request.headers.items():
+                        low_conn.putheader(header, value)
+    
+                    low_conn.endheaders()
+    
+                    for i in request.body:
+                        low_conn.send(hex(len(i))[2:].encode('utf-8'))
+                        low_conn.send(b'\r\n')
+                        low_conn.send(i)
+                        low_conn.send(b'\r\n')
+                    low_conn.send(b'0\r\n\r\n')
+    
+                    # Receive the response from the server
+                    try:
+                        # For Python 2.7, use buffering of HTTP responses
+                        r = low_conn.getresponse(buffering=True)
+                    except TypeError:
+                        # For compatibility with Python 3.3+
+                        r = low_conn.getresponse()
+    
+                    resp = HTTPResponse.from_httplib(
+                        r,
+                        pool=conn,
+                        connection=low_conn,
+                        preload_content=False,
+                        decode_content=False
+                    )
+                except:
+                    # If we hit any problems here, clean up the connection.
+                    # Then, reraise so that we can handle the actual exception.
+                    low_conn.close()
+                    raise
+    
+        except (ProtocolError, socket.error) as err:
+            raise ConnectionError(err, request=request)
+    
+        except MaxRetryError as e:
+            if isinstance(e.reason, ConnectTimeoutError):
+                # TODO: Remove this in 3.0.0: see #2811
+                if not isinstance(e.reason, NewConnectionError):
+                    raise ConnectTimeout(e, request=request)
+    
+            if isinstance(e.reason, ResponseError):
+                raise RetryError(e, request=request)
+    
+            if isinstance(e.reason, _ProxyError):
+                raise ProxyError(e, request=request)
+    
+            if isinstance(e.reason, _SSLError):
+                # This branch is for urllib3 v1.22 and later.
+                raise SSLError(e, request=request)
+    
+>           raise ConnectionError(e, request=request)
+E           requests.exceptions.ConnectionError: HTTPConnectionPool(host='lisi1.unal.edu.co', port=80): Max retries exceeded with url: /mmimdb/mmimdb.tar.gz (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fb0cdf93c10>: Failed to establish a new connection: [Errno 110] Connection timed out'))
+
+../anaconda3/envs/mmf/lib/python3.7/site-packages/requests/adapters.py:516: ConnectionError
+============================================================== warnings summary ==============================================================
+../anaconda3/envs/mmf/lib/python3.7/site-packages/transformers/modeling_deberta.py:18
+  /home/cybertron/anaconda3/envs/mmf/lib/python3.7/site-packages/transformers/modeling_deberta.py:18: DeprecationWarning: Using or importing the ABCs from 'collections' instead of from 'collections.abc' is deprecated since Python 3.3,and in 3.9 it will stop working
+    from collections import Sequence
+
+tests/modules/test_losses.py:34
+  /home/cybertron/mmf/tests/modules/test_losses.py:34: PytestCollectionWarning: cannot collect test class 'TestMSEAndMAELoss' because it has a __init__ constructor (from: tests/modules/test_losses.py)
+    class TestMSEAndMAELoss(nn.Module):
+
+tests/utils/test_model.py:7
+  /home/cybertron/mmf/tests/utils/test_model.py:7: PytestCollectionWarning: cannot collect test class 'TestDecoderModel' because it has a __init__ constructor (from: tests/utils/test_model.py)
+    class TestDecoderModel(nn.Module):
+
+tests/utils/test_model.py:7
+  /home/cybertron/mmf/tests/utils/test_model.py:7: PytestCollectionWarning: cannot collect test class 'TestDecoderModel' because it has a __init__ constructor (from: tests/utils/test_text.py)
+    class TestDecoderModel(nn.Module):
+
+tests/common/test_report.py::TestReport::test_report_detach
+  /home/cybertron/mmf/mmf/common/report.py:101: DeprecationWarning: Using or importing the ABCs from 'collections' instead of from 'collections.abc' is deprecated since Python 3.3,and in 3.9 it will stop working
+    if isinstance(self[key], collections.MutableSequence):
+
+tests/common/test_sample.py::TestFunctions::test_to_device
+  /home/cybertron/mmf/mmf/common/sample.py:427: DeprecationWarning: Using or importing the ABCs from 'collections' instead of from 'collections.abc' is deprecated since Python 3.3,and in 3.9 it will stop working
+    if isinstance(sample_list, collections.Mapping):
+
+tests/common/test_sample.py::TestFunctions::test_to_device
+tests/utils/test_checkpoint.py::TestUtilsCheckpoint::test_checkpoint_scaler_loading
+tests/utils/test_checkpoint.py::TestUtilsCheckpoint::test_finalize_and_restore_from_it
+tests/utils/test_checkpoint.py::TestUtilsCheckpoint::test_finalize_and_resume_file
+tests/utils/test_checkpoint.py::TestUtilsCheckpoint::test_max_to_keep
+tests/utils/test_checkpoint.py::TestUtilsCheckpoint::test_pretrained_load
+tests/utils/test_checkpoint.py::TestUtilsCheckpoint::test_resets
+tests/utils/test_checkpoint.py::TestUtilsCheckpoint::test_save_and_load_state_dict
+tests/utils/test_checkpoint.py::TestUtilsCheckpoint::test_zoo_load
+  /home/cybertron/mmf/mmf/common/sample.py:433: UserWarning: You are not returning SampleList/Sample from your dataset. MMF expects you to move your tensors to cuda yourself.
+    "You are not returning SampleList/Sample from your dataset. "
+
+tests/configs/test_configs_for_keys.py: 2 warnings
+tests/datasets/test_base_dataset.py: 1 warning
+tests/models/test_cnn_lstm.py: 1 warning
+tests/models/test_mmbt.py: 3 warnings
+tests/models/test_mmf_transformer.py: 4 warnings
+tests/models/test_vilbert.py: 4 warnings
+tests/models/test_visual_bert.py: 3 warnings
+tests/trainers/test_fp16.py: 2 warnings
+tests/trainers/test_training_loop.py: 9 warnings
+tests/trainers/callbacks/test_logistics.py: 4 warnings
+tests/trainers/callbacks/test_lr_scheduler.py: 1 warning
+tests/trainers/callbacks/test_user_callback.py: 1 warning
+tests/trainers/lightning/test_checkpoint.py: 11 warnings
+tests/trainers/lightning/test_grad_accumulate.py: 1 warning
+tests/trainers/lightning/test_grad_clipping.py: 1 warning
+tests/trainers/lightning/test_logging.py: 1 warning
+tests/trainers/lightning/test_loop_conditions.py: 3 warnings
+tests/trainers/lightning/test_loss.py: 1 warning
+tests/trainers/lightning/test_lr_schedule.py: 2 warnings
+tests/trainers/lightning/test_validation.py: 2 warnings
+tests/utils/test_checkpoint.py: 9 warnings
+tests/utils/test_configuration.py: 1 warning
+tests/utils/test_env.py: 3 warnings
+tests/utils/test_logger.py: 1 warning
+tests/utils/test_text.py: 6 warnings
+  /home/cybertron/anaconda3/envs/mmf/lib/python3.7/site-packages/omegaconf/grammar_visitor.py:257: UserWarning: In the sequence `MMF_USER_DIR,` some elements are missing: please replace them with empty quoted strings. See https://github.com/omry/omegaconf/issues/572 for details.
+    category=UserWarning,
+
+tests/configs/test_configs_for_keys.py: 2 warnings
+tests/datasets/test_base_dataset.py: 1 warning
+tests/models/test_cnn_lstm.py: 1 warning
+tests/models/test_mmbt.py: 3 warnings
+tests/models/test_mmf_transformer.py: 4 warnings
+tests/models/test_vilbert.py: 4 warnings
+tests/models/test_visual_bert.py: 3 warnings
+tests/trainers/test_fp16.py: 2 warnings
+tests/trainers/test_training_loop.py: 9 warnings
+tests/trainers/callbacks/test_logistics.py: 4 warnings
+tests/trainers/callbacks/test_lr_scheduler.py: 1 warning
+tests/trainers/callbacks/test_user_callback.py: 1 warning
+tests/trainers/lightning/test_checkpoint.py: 11 warnings
+tests/trainers/lightning/test_grad_accumulate.py: 1 warning
+tests/trainers/lightning/test_grad_clipping.py: 1 warning
+tests/trainers/lightning/test_logging.py: 1 warning
+tests/trainers/lightning/test_loop_conditions.py: 3 warnings
+tests/trainers/lightning/test_loss.py: 1 warning
+tests/trainers/lightning/test_lr_schedule.py: 2 warnings
+tests/trainers/lightning/test_validation.py: 2 warnings
+tests/utils/test_checkpoint.py: 9 warnings
+tests/utils/test_configuration.py: 1 warning
+tests/utils/test_env.py: 3 warnings
+tests/utils/test_logger.py: 1 warning
+tests/utils/test_text.py: 6 warnings
+  /home/cybertron/anaconda3/envs/mmf/lib/python3.7/site-packages/omegaconf/resolvers/__init__.py:13: UserWarning: The `env` resolver is deprecated, see https://github.com/omry/omegaconf/issues/573
+    "The `env` resolver is deprecated, see https://github.com/omry/omegaconf/issues/573"
+
+tests/configs/test_configs_for_keys.py: 2 warnings
+tests/datasets/test_base_dataset.py: 1 warning
+tests/models/test_cnn_lstm.py: 1 warning
+tests/models/test_mmbt.py: 3 warnings
+tests/models/test_mmf_transformer.py: 4 warnings
+tests/models/test_vilbert.py: 4 warnings
+tests/models/test_visual_bert.py: 3 warnings
+tests/trainers/callbacks/test_logistics.py: 3 warnings
+tests/trainers/callbacks/test_lr_scheduler.py: 1 warning
+tests/trainers/callbacks/test_user_callback.py: 1 warning
+tests/trainers/lightning/test_checkpoint.py: 11 warnings
+tests/utils/test_checkpoint.py: 9 warnings
+tests/utils/test_configuration.py: 1 warning
+tests/utils/test_env.py: 3 warnings
+tests/utils/test_logger.py: 1 warning
+tests/utils/test_text.py: 6 warnings
+  /home/cybertron/anaconda3/envs/mmf/lib/python3.7/site-packages/omegaconf/grammar_visitor.py:257: UserWarning: In the sequence `MMF_LOG_DIR,` some elements are missing: please replace them with empty quoted strings. See https://github.com/omry/omegaconf/issues/572 for details.
+    category=UserWarning,
+
+tests/configs/test_configs_for_keys.py: 2 warnings
+tests/datasets/test_base_dataset.py: 1 warning
+tests/models/test_cnn_lstm.py: 1 warning
+tests/models/test_mmbt.py: 3 warnings
+tests/models/test_mmf_transformer.py: 4 warnings
+tests/models/test_vilbert.py: 4 warnings
+tests/models/test_visual_bert.py: 3 warnings
+tests/trainers/test_training_loop.py: 8 warnings
+tests/trainers/callbacks/test_logistics.py: 3 warnings
+tests/trainers/callbacks/test_lr_scheduler.py: 1 warning
+tests/trainers/callbacks/test_user_callback.py: 1 warning
+tests/trainers/lightning/test_checkpoint.py: 11 warnings
+tests/utils/test_checkpoint.py: 9 warnings
+tests/utils/test_configuration.py: 1 warning
+tests/utils/test_env.py: 3 warnings
+tests/utils/test_logger.py: 1 warning
+tests/utils/test_text.py: 6 warnings
+  /home/cybertron/anaconda3/envs/mmf/lib/python3.7/site-packages/omegaconf/grammar_visitor.py:257: UserWarning: In the sequence `MMF_REPORT_DIR,` some elements are missing: please replace them with empty quoted strings. See https://github.com/omry/omegaconf/issues/572 for details.
+    category=UserWarning,
+
+tests/configs/test_configs_for_keys.py: 2 warnings
+tests/datasets/test_base_dataset.py: 1 warning
+tests/models/test_cnn_lstm.py: 1 warning
+tests/models/test_mmbt.py: 3 warnings
+tests/models/test_mmf_transformer.py: 4 warnings
+tests/models/test_vilbert.py: 4 warnings
+tests/models/test_visual_bert.py: 3 warnings
+tests/trainers/callbacks/test_logistics.py: 3 warnings
+tests/trainers/callbacks/test_lr_scheduler.py: 1 warning
+tests/trainers/callbacks/test_user_callback.py: 1 warning
+tests/trainers/lightning/test_checkpoint.py: 11 warnings
+tests/utils/test_checkpoint.py: 9 warnings
+tests/utils/test_configuration.py: 1 warning
+tests/utils/test_env.py: 3 warnings
+tests/utils/test_logger.py: 1 warning
+tests/utils/test_text.py: 6 warnings
+  /home/cybertron/anaconda3/envs/mmf/lib/python3.7/site-packages/omegaconf/grammar_visitor.py:257: UserWarning: In the sequence `MMF_TENSORBOARD_LOGDIR,` some elements are missing: please replace them with empty quoted strings. See https://github.com/omry/omegaconf/issues/572 for details.
+    category=UserWarning,
+
+tests/configs/test_configs_for_keys.py: 2 warnings
+tests/datasets/test_base_dataset.py: 1 warning
+tests/models/test_cnn_lstm.py: 1 warning
+tests/models/test_mmbt.py: 3 warnings
+tests/models/test_mmf_transformer.py: 4 warnings
+tests/models/test_vilbert.py: 4 warnings
+tests/models/test_visual_bert.py: 3 warnings
+tests/trainers/callbacks/test_logistics.py: 3 warnings
+tests/trainers/callbacks/test_lr_scheduler.py: 1 warning
+tests/trainers/callbacks/test_user_callback.py: 1 warning
+tests/trainers/lightning/test_checkpoint.py: 11 warnings
+tests/utils/test_checkpoint.py: 9 warnings
+tests/utils/test_configuration.py: 1 warning
+tests/utils/test_env.py: 3 warnings
+tests/utils/test_logger.py: 1 warning
+tests/utils/test_text.py: 6 warnings
+  /home/cybertron/anaconda3/envs/mmf/lib/python3.7/site-packages/omegaconf/grammar_visitor.py:257: UserWarning: In the sequence `MMF_WANDB_LOGDIR,` some elements are missing: please replace them with empty quoted strings. See https://github.com/omry/omegaconf/issues/572 for details.
+    category=UserWarning,
+
+tests/configs/test_configs_for_keys.py::TestConfigsForKeys::test_dataset_configs_for_keys
+  /home/cybertron/mmf/tests/configs/test_configs_for_keys.py:60: UserWarning: Dataset vqa2_ocr has no default configuration defined. Skipping it. Make sure it is intentional
+    ).format(builder_key)
+
+tests/configs/test_configs_for_keys.py::TestConfigsForKeys::test_dataset_configs_for_keys
+  /home/cybertron/mmf/tests/configs/test_configs_for_keys.py:60: UserWarning: Dataset retrieval has no default configuration defined. Skipping it. Make sure it is intentional
+    ).format(builder_key)
+
+tests/configs/test_configs_for_keys.py::TestConfigsForKeys::test_model_configs_for_keys
+  /home/cybertron/mmf/tests/configs/test_configs_for_keys.py:31: UserWarning: Model multihead has no default configuration defined. Skipping it. Make sure it is intentional
+    ).format(model_key)
+
+tests/configs/test_configs_for_keys.py::TestConfigsForKeys::test_model_configs_for_keys
+  /home/cybertron/mmf/tests/configs/test_configs_for_keys.py:31: UserWarning: Model top_down_bottom_up has no default configuration defined. Skipping it. Make sure it is intentional
+    ).format(model_key)
+
+tests/configs/test_configs_for_keys.py::TestConfigsForKeys::test_model_configs_for_keys
+  /home/cybertron/mmf/tests/configs/test_configs_for_keys.py:31: UserWarning: Model simple_model has no default configuration defined. Skipping it. Make sure it is intentional
+    ).format(model_key)
+
+tests/configs/test_configs_for_keys.py::TestConfigsForKeys::test_model_configs_for_keys
+  /home/cybertron/mmf/tests/configs/test_configs_for_keys.py:31: UserWarning: Model simple_lightning_model has no default configuration defined. Skipping it. Make sure it is intentional
+    ).format(model_key)
+
+tests/datasets/test_iteration_strategies.py::TestIterationStrategies::test_ratios_strategy
+  /home/cybertron/mmf/mmf/datasets/iteration_strategies.py:290: UserWarning: Either 'datasets' key not in global config or is a empty list. Moving forward with dataset list same as sampling ratios
+    "Either 'datasets' key not in global config or is a empty list. "
+
+tests/datasets/test_multi_dataset_loader.py::TestMultiDatasetLoader::test_equal_sampling
+tests/datasets/test_multi_dataset_loader.py::TestMultiDatasetLoader::test_proportional_sampling
+  /home/cybertron/mmf/mmf/datasets/multi_dataset_loader.py:39: UserWarning: Empty loaders passed into MultiDataLoader. This can have unintended consequences.
+    "Empty loaders passed into MultiDataLoader. This can have "
+
+tests/models/test_cnn_lstm.py::TestModelCNNLSTM::test_forward
+  /home/cybertron/anaconda3/envs/mmf/lib/python3.7/site-packages/torch/nn/functional.py:718: UserWarning: Named tensors and all their associated APIs are an experimental feature and subject to change. Please do not use them for anything important until they are released as stable. (Triggered internally at  /pytorch/c10/core/TensorImpl.h:1156.)
+    return torch.max_pool2d(input, kernel_size, stride, padding, dilation, ceil_mode)
+
+tests/models/test_mmbt.py: 3 warnings
+tests/models/test_mmf_transformer.py: 11 warnings
+tests/models/test_vilbert.py: 4 warnings
+tests/models/test_visual_bert.py: 3 warnings
+tests/trainers/lightning/test_checkpoint.py: 7 warnings
+  /home/cybertron/mmf/mmf/models/base_model.py:161: UserWarning: No losses are defined in model configuration. You are expected to return loss in your return dict from forward.
+    "No losses are defined in model configuration. You are expected "
+
+tests/models/test_mmbt.py::TestMMBTTorchscript::test_load_save_finetune_model
+  /home/cybertron/anaconda3/envs/mmf/lib/python3.7/site-packages/torch/jit/_recursive.py:575: LightningDeprecationWarning: The `LightningModule.datamodule` property is deprecated in v1.3 and will be removed in v1.5. Access the datamodule through using `self.trainer.datamodule` instead.
+    item = getattr(mod, name, None)
+
+tests/models/test_mmbt.py::TestMMBTTorchscript::test_load_save_finetune_model
+  /home/cybertron/anaconda3/envs/mmf/lib/python3.7/site-packages/torch/jit/_recursive.py:575: LightningDeprecationWarning: The `LightningModule.loaded_optimizer_states_dict` property is deprecated in v1.4 and will be removed in v1.6.
+    item = getattr(mod, name, None)
+
+tests/models/test_mmbt.py: 2 warnings
+tests/models/test_mmf_transformer.py: 8 warnings
+tests/models/test_visual_bert.py: 4 warnings
+  /home/cybertron/anaconda3/envs/mmf/lib/python3.7/site-packages/torch/jit/_recursive.py:575: LightningDeprecationWarning: The `LightningModule.model_size` property was deprecated in v1.5 and will be removed in v1.7. Please use the `pytorch_lightning.utilities.memory.get_model_size_mb`.
+    item = getattr(mod, name, None)
+
+tests/models/test_mmbt.py::TestMMBTTorchscript::test_load_save_finetune_model
+tests/models/test_mmf_transformer.py::TestMMFTransformerTorchscript::test_finetune_bert_base
+tests/models/test_mmf_transformer.py::TestMMFTransformerTorchscript::test_finetune_roberta_base
+tests/models/test_mmf_transformer.py::TestMMFTransformerTorchscript::test_finetune_xlmr_base
+tests/models/test_mmf_transformer.py::TestMMFTransformerTorchscript::test_load_save_finetune_model
+tests/models/test_visual_bert.py::TestVisualBertTorchscript::test_finetune_model
+tests/models/test_visual_bert.py::TestVisualBertTorchscript::test_load_save_finetune_model
+  /home/cybertron/anaconda3/envs/mmf/lib/python3.7/site-packages/torch/jit/_recursive.py:658: LightningDeprecationWarning: The `LightningModule.model_size` property was deprecated in v1.5 and will be removed in v1.7. Please use the `pytorch_lightning.utilities.memory.get_model_size_mb`.
+    item = getattr(nn_module, name, None)
+
+tests/models/test_mmbt.py::TestMMBTTorchscript::test_load_save_finetune_model
+tests/models/test_mmf_transformer.py::TestMMFTransformerTorchscript::test_finetune_bert_base
+tests/models/test_mmf_transformer.py::TestMMFTransformerTorchscript::test_finetune_roberta_base
+tests/models/test_mmf_transformer.py::TestMMFTransformerTorchscript::test_finetune_xlmr_base
+tests/models/test_mmf_transformer.py::TestMMFTransformerTorchscript::test_load_save_finetune_model
+tests/models/test_visual_bert.py::TestVisualBertTorchscript::test_finetune_model
+tests/models/test_visual_bert.py::TestVisualBertTorchscript::test_load_save_finetune_model
+  /home/cybertron/anaconda3/envs/mmf/lib/python3.7/site-packages/torch/jit/_recursive.py:462: LightningDeprecationWarning: The `LightningModule.model_size` property was deprecated in v1.5 and will be removed in v1.7. Please use the `pytorch_lightning.utilities.memory.get_model_size_mb`.
+    item = getattr(nn_module, name, None)
+
+tests/models/test_mmbt.py::TestMMBTTorchscript::test_load_save_finetune_model
+tests/models/test_mmf_transformer.py::TestMMFTransformerTorchscript::test_finetune_bert_base
+tests/models/test_mmf_transformer.py::TestMMFTransformerTorchscript::test_finetune_roberta_base
+tests/models/test_mmf_transformer.py::TestMMFTransformerTorchscript::test_finetune_xlmr_base
+tests/models/test_mmf_transformer.py::TestMMFTransformerTorchscript::test_load_save_finetune_model
+tests/models/test_visual_bert.py::TestVisualBertTorchscript::test_finetune_model
+tests/models/test_visual_bert.py::TestVisualBertTorchscript::test_load_save_finetune_model
+  /home/cybertron/anaconda3/envs/mmf/lib/python3.7/site-packages/torch/jit/_recursive.py:545: LightningDeprecationWarning: The `LightningModule.model_size` property was deprecated in v1.5 and will be removed in v1.7. Please use the `pytorch_lightning.utilities.memory.get_model_size_mb`.
+    item = getattr(nn_module, name, None)
+
+tests/models/test_mmf_transformer.py::TestMMFTransformerTorchscript::test_finetune_bert_base
+tests/models/test_mmf_transformer.py::TestMMFTransformerTorchscript::test_finetune_roberta_base
+tests/models/test_mmf_transformer.py::TestMMFTransformerTorchscript::test_finetune_xlmr_base
+tests/models/test_visual_bert.py::TestVisualBertTorchscript::test_finetune_model
+  /home/cybertron/mmf/mmf/modules/losses.py:112: UserWarning: Sample list has not field 'targets', are you sure that your ImDB has labels? you may have wanted to run with evaluation.predict=true
+    "Sample list has not field 'targets', are you "
+
+tests/models/test_visual_bert.py: 1 warning
+tests/trainers/test_eval_loop.py: 1 warning
+tests/trainers/test_fp16.py: 2 warnings
+tests/trainers/test_training_loop.py: 9 warnings
+tests/trainers/lightning/test_checkpoint.py: 9 warnings
+tests/trainers/lightning/test_grad_accumulate.py: 1 warning
+tests/trainers/lightning/test_grad_clipping.py: 1 warning
+tests/trainers/lightning/test_logging.py: 1 warning
+tests/trainers/lightning/test_loop_conditions.py: 3 warnings
+tests/trainers/lightning/test_loss.py: 1 warning
+tests/trainers/lightning/test_lr_schedule.py: 2 warnings
+tests/trainers/lightning/test_validation.py: 2 warnings
+tests/utils/test_checkpoint.py: 8 warnings
+  /home/cybertron/mmf/mmf/models/base_model.py:323: UserWarning: 'losses' already present in model output. No calculation will be done in base model.
+    "'losses' already present in model output. "
+
+tests/modules/test_metrics.py::TestModuleMetrics::test_caption_bleu4
+  /home/cybertron/anaconda3/envs/mmf/lib/python3.7/site-packages/nltk/decorators.py:68: DeprecationWarning: `formatargspec` is deprecated since Python 3.5. Use `signature` and the `Signature` object directly
+    regargs, varargs, varkwargs, defaults, formatvalue=lambda value: ""
+
+tests/modules/test_metrics.py::TestModuleMetrics::test_caption_bleu4
+  /home/cybertron/anaconda3/envs/mmf/lib/python3.7/site-packages/nltk/lm/vocabulary.py:13: DeprecationWarning: Using or importing the ABCs from 'collections' instead of from 'collections.abc' is deprecated since Python 3.3,and in 3.9 it will stop working
+    from collections import Counter, Iterable
+
+tests/modules/test_metrics.py::TestModuleMetrics::test_macro_f1_precision_recall
+tests/modules/test_metrics.py::TestModuleMetrics::test_macro_f1_precision_recall
+  /home/cybertron/anaconda3/envs/mmf/lib/python3.7/site-packages/sklearn/metrics/_classification.py:1248: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+    _warn_prf(average, modifier, msg_start, len(result))
+
+tests/trainers/test_device.py::TestDevice::test_current_device
+  /home/cybertron/mmf/mmf/trainers/core/device.py:37: UserWarning: No 'device_id' in 'config', setting to -1. This can cause issues later in training. Ensure that distributed setup is properly initialized.
+    "No 'device_id' in 'config', setting to -1. "
+
+tests/trainers/test_eval_loop.py: 1 warning
+tests/trainers/test_fp16.py: 2 warnings
+tests/trainers/test_training_loop.py: 9 warnings
+tests/trainers/lightning/test_checkpoint.py: 11 warnings
+tests/trainers/lightning/test_grad_accumulate.py: 1 warning
+tests/trainers/lightning/test_grad_clipping.py: 1 warning
+tests/trainers/lightning/test_logging.py: 1 warning
+tests/trainers/lightning/test_loop_conditions.py: 3 warnings
+tests/trainers/lightning/test_loss.py: 1 warning
+tests/trainers/lightning/test_lr_schedule.py: 2 warnings
+tests/trainers/lightning/test_validation.py: 2 warnings
+  /home/cybertron/mmf/mmf/datasets/multi_datamodule.py:63: UserWarning: 'multitasking' config not defined. Disabling any form of multitasking
+    "'multitasking' config not defined. Disabling any form of multitasking"
+
+tests/trainers/test_fp16.py::TestFp16::test_fp16_values
+tests/trainers/test_fp16.py::TestFp16::test_fp16_works
+tests/trainers/test_training_loop.py::TestTrainingLoop::test_epoch_over_updates
+tests/trainers/lightning/test_loop_conditions.py::TestLightningTrainer::test_epoch_over_updates
+  /home/cybertron/mmf/mmf/utils/general.py:350: UserWarning: Both max_updates and max_epochs are specified. Favoring max_epochs: 0.04
+    + f"Favoring max_epochs: {config_max_epochs}"
+
+tests/trainers/callbacks/test_lr_scheduler.py::TestLogisticsCallback::test_on_update_end
+tests/trainers/callbacks/test_user_callback.py::TestUserCallback::test_on_update_end
+  /home/cybertron/mmf/mmf/utils/build.py:471: UserWarning: No type for scheduler specified even though lr_scheduler is True, setting default to 'Pythia'
+    "No type for scheduler specified even though lr_scheduler is True, "
+
+tests/trainers/callbacks/test_lr_scheduler.py::TestLogisticsCallback::test_on_update_end
+tests/trainers/callbacks/test_user_callback.py::TestUserCallback::test_on_update_end
+  /home/cybertron/mmf/mmf/utils/build.py:477: UserWarning: scheduler attributes has no params defined, defaulting to {}.
+    warnings.warn("scheduler attributes has no params defined, defaulting to {}.")
+
+tests/trainers/callbacks/test_lr_scheduler.py::TestLogisticsCallback::test_on_update_end
+  /home/cybertron/anaconda3/envs/mmf/lib/python3.7/site-packages/torch/optim/lr_scheduler.py:134: UserWarning: Detected call of `lr_scheduler.step()` before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
+    "https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate", UserWarning)
+
+tests/trainers/lightning/test_checkpoint.py: 11 warnings
+  /home/cybertron/anaconda3/envs/mmf/lib/python3.7/site-packages/pytorch_lightning/callbacks/model_checkpoint.py:425: UserWarning: ModelCheckpoint(save_last=True, save_top_k=None, monitor=None) is a redundant configuration. You can save the last checkpoint with ModelCheckpoint(save_top_k=None, monitor=None).
+    "ModelCheckpoint(save_last=True, save_top_k=None, monitor=None) is a redundant configuration."
+
+tests/trainers/lightning/test_checkpoint.py: 13 warnings
+tests/trainers/lightning/test_logging.py: 1 warning
+tests/trainers/lightning/test_validation.py: 1 warning
+  /home/cybertron/anaconda3/envs/mmf/lib/python3.7/site-packages/pytorch_lightning/trainer/trainer.py:518: LightningDeprecationWarning: `trainer.fit(train_dataloader)` is deprecated in v1.4 and will be removed in v1.6. Use `trainer.fit(train_dataloaders)` instead. HINT: added 's'
+    "`trainer.fit(train_dataloader)` is deprecated in v1.4 and will be removed in v1.6."
+
+tests/trainers/lightning/test_checkpoint.py: 44 warnings
+tests/trainers/lightning/test_logging.py: 3 warnings
+tests/trainers/lightning/test_validation.py: 3 warnings
+  /home/cybertron/anaconda3/envs/mmf/lib/python3.7/site-packages/pytorch_lightning/trainer/deprecated_api.py:33: LightningDeprecationWarning: `Trainer.train_loop` has been renamed to `Trainer.fit_loop` and will be removed in v1.6.
+    "`Trainer.train_loop` has been renamed to `Trainer.fit_loop` and will be removed in v1.6."
+
+tests/trainers/lightning/test_checkpoint.py::TestLightningCheckpoint::test_lightning_checkpoint_interval
+  /home/cybertron/mmf/tests/trainers/lightning/test_checkpoint.py:453: DeprecationWarning: Please use assertEqual instead.
+    self.assertEquals(3, len(files))
+
+tests/trainers/lightning/test_checkpoint.py: 10 warnings
+tests/trainers/lightning/test_grad_accumulate.py: 1 warning
+tests/trainers/lightning/test_grad_clipping.py: 1 warning
+tests/trainers/lightning/test_loop_conditions.py: 3 warnings
+tests/trainers/lightning/test_loss.py: 1 warning
+tests/trainers/lightning/test_lr_schedule.py: 2 warnings
+  /home/cybertron/anaconda3/envs/mmf/lib/python3.7/site-packages/pytorch_lightning/trainer/configuration_validator.py:101: UserWarning: you defined a validation_step but have no val_dataloader. Skipping val loop
+    rank_zero_warn(f"you defined a {step_name} but have no {loader_name}. Skipping {stage} loop")
+
+tests/trainers/lightning/test_checkpoint.py::TestLightningCheckpoint::test_load_mmf_trainer_checkpoint_in_lightning
+  /home/cybertron/mmf/tests/trainers/lightning/test_checkpoint.py:329: DeprecationWarning: Please use assertEqual instead.
+    self.assertEquals(lightning.trainer.global_step, 6)
+
+tests/trainers/lightning/test_checkpoint.py::TestLightningCheckpoint::test_load_mmf_trainer_checkpoint_in_lightning
+  /home/cybertron/mmf/tests/trainers/lightning/test_checkpoint.py:333: DeprecationWarning: Please use assertEqual instead.
+    self.assertEquals(len(call_args_list), 0)
+
+tests/trainers/lightning/test_checkpoint.py: 469 warnings
+  /home/cybertron/mmf/tests/trainers/lightning/test_checkpoint.py:56: DeprecationWarning: Please use assertAlmostEqual instead.
+    self.assertAlmostEquals(obj1.mean().item(), obj2.mean().item(), 2)
+
+tests/trainers/lightning/test_checkpoint.py::TestLightningCheckpoint::test_load_resume_best_parity_with_mmf
+  /home/cybertron/anaconda3/envs/mmf/lib/python3.7/site-packages/pytorch_lightning/callbacks/model_checkpoint.py:438: UserWarning: Checkpoint directory /tmp/tmpfdr_rl9n exists and is not empty.
+    rank_zero_warn(f"Checkpoint directory {dirpath} exists and is not empty.")
+
+tests/trainers/lightning/test_checkpoint.py::TestLightningCheckpoint::test_load_resume_best_parity_with_mmf
+tests/trainers/lightning/test_checkpoint.py::TestLightningCheckpoint::test_load_resume_ignore_resume_zoo
+tests/trainers/lightning/test_checkpoint.py::TestLightningCheckpoint::test_load_resume_parity_with_mmf
+tests/trainers/lightning/test_checkpoint.py::TestLightningCheckpoint::test_load_trainer_ckpt_number_of_steps
+  /home/cybertron/anaconda3/envs/mmf/lib/python3.7/site-packages/pytorch_lightning/trainer/callback_hook.py:285: UserWarning: Be aware that when using ``resume_from_checkpoint``, callbacks used to create the checkpoint need to be provided. Please, add the following callbacks: ['ModelCheckpoint']. 
+    UserWarning,
+
+tests/trainers/lightning/test_checkpoint.py::TestLightningCheckpoint::test_load_resume_best_parity_with_mmf
+tests/trainers/lightning/test_checkpoint.py::TestLightningCheckpoint::test_load_resume_ignore_resume_zoo
+tests/trainers/lightning/test_checkpoint.py::TestLightningCheckpoint::test_load_resume_parity_with_mmf
+  /home/cybertron/mmf/tests/trainers/lightning/test_checkpoint.py:510: DeprecationWarning: Please use assertEqual instead.
+    self.assertEquals(mmf_ckpt["current_epoch"], lightning_ckpt["epoch"])
+
+tests/trainers/lightning/test_checkpoint.py::TestLightningCheckpoint::test_load_resume_best_parity_with_mmf
+tests/trainers/lightning/test_checkpoint.py::TestLightningCheckpoint::test_load_resume_ignore_resume_zoo
+tests/trainers/lightning/test_checkpoint.py::TestLightningCheckpoint::test_load_resume_parity_with_mmf
+  /home/cybertron/mmf/tests/trainers/lightning/test_checkpoint.py:511: DeprecationWarning: Please use assertEqual instead.
+    self.assertEquals(mmf_ckpt["num_updates"], lightning_ckpt["global_step"])
+
+tests/trainers/lightning/test_checkpoint.py::TestLightningCheckpoint::test_load_resume_ignore_resume_zoo
+  /home/cybertron/anaconda3/envs/mmf/lib/python3.7/site-packages/pytorch_lightning/callbacks/model_checkpoint.py:438: UserWarning: Checkpoint directory /tmp/tmp7kv3rsmq exists and is not empty.
+    rank_zero_warn(f"Checkpoint directory {dirpath} exists and is not empty.")
+
+tests/trainers/lightning/test_checkpoint.py::TestLightningCheckpoint::test_load_resume_parity_with_mmf
+  /home/cybertron/anaconda3/envs/mmf/lib/python3.7/site-packages/pytorch_lightning/callbacks/model_checkpoint.py:438: UserWarning: Checkpoint directory /tmp/tmptn6nzqjg exists and is not empty.
+    rank_zero_warn(f"Checkpoint directory {dirpath} exists and is not empty.")
+
+tests/trainers/lightning/test_checkpoint.py::TestLightningCheckpoint::test_load_resume_zoo_parity_with_mmf
+  /home/cybertron/anaconda3/envs/mmf/lib/python3.7/site-packages/pytorch_lightning/core/saving.py:206: UserWarning: Found keys that are in the model state dict but not in the checkpoint: ['base.encoder.embeddings.position_ids']
+    f"Found keys that are in the model state dict but not in the checkpoint: {keys.missing_keys}"
+
+tests/trainers/lightning/test_checkpoint.py::TestLightningCheckpoint::test_load_resume_zoo_parity_with_mmf
+  /home/cybertron/anaconda3/envs/mmf/lib/python3.7/site-packages/pytorch_lightning/core/saving.py:210: UserWarning: Found keys that are not in the model state dict but in the checkpoint: ['hyper_parameters']
+    f"Found keys that are not in the model state dict but in the checkpoint: {keys.unexpected_keys}"
+
+tests/trainers/lightning/test_checkpoint.py::TestLightningCheckpoint::test_load_trainer_ckpt_number_of_steps
+  /home/cybertron/anaconda3/envs/mmf/lib/python3.7/site-packages/pytorch_lightning/callbacks/model_checkpoint.py:438: UserWarning: Checkpoint directory /tmp/tmpx9w3gso8 exists and is not empty.
+    rank_zero_warn(f"Checkpoint directory {dirpath} exists and is not empty.")
+
+tests/trainers/lightning/test_checkpoint.py::TestLightningCheckpoint::test_load_trainer_ckpt_number_of_steps
+  /home/cybertron/mmf/tests/trainers/lightning/test_checkpoint.py:393: DeprecationWarning: Please use assertEqual instead.
+    self.assertEquals(lightning.trainer.global_step, 12)
+
+tests/trainers/lightning/test_checkpoint.py::TestLightningCheckpoint::test_load_trainer_resume_parity_with_mmf
+  /home/cybertron/anaconda3/envs/mmf/lib/python3.7/site-packages/pytorch_lightning/callbacks/model_checkpoint.py:438: UserWarning: Checkpoint directory /tmp/tmpgg7ovlb4 exists and is not empty.
+    rank_zero_warn(f"Checkpoint directory {dirpath} exists and is not empty.")
+
+tests/trainers/lightning/test_checkpoint.py::TestLightningCheckpoint::test_load_zoo_with_pretrained_state_mapping_parity_with_mmf
+  /home/cybertron/anaconda3/envs/mmf/lib/python3.7/site-packages/pytorch_lightning/core/saving.py:206: UserWarning: Found keys that are in the model state dict but not in the checkpoint: ['base.encoder.embeddings.position_ids', 'base.encoder.encoder.layer.0.attention.self.query.weight', 'base.encoder.encoder.layer.0.attention.self.query.bias', 'base.encoder.encoder.layer.0.attention.self.key.weight', 'base.encoder.encoder.layer.0.attention.self.key.bias', 'base.encoder.encoder.layer.0.attention.self.value.weight', 'base.encoder.encoder.layer.0.attention.self.value.bias', 'base.encoder.encoder.layer.0.attention.output.dense.weight', 'base.encoder.encoder.layer.0.attention.output.dense.bias', 'base.encoder.encoder.layer.0.attention.output.LayerNorm.weight', 'base.encoder.encoder.layer.0.attention.output.LayerNorm.bias', 'base.encoder.encoder.layer.0.intermediate.dense.weight', 'base.encoder.encoder.layer.0.intermediate.dense.bias', 'base.encoder.encoder.layer.0.output.dense.weight', 'base.encoder.encoder.layer.0.output.dense.bias', 'base.encoder.encoder.layer.0.output.LayerNorm.weight', 'base.encoder.encoder.layer.0.output.LayerNorm.bias', 'base.encoder.encoder.layer.1.attention.self.query.weight', 'base.encoder.encoder.layer.1.attention.self.query.bias', 'base.encoder.encoder.layer.1.attention.self.key.weight', 'base.encoder.encoder.layer.1.attention.self.key.bias', 'base.encoder.encoder.layer.1.attention.self.value.weight', 'base.encoder.encoder.layer.1.attention.self.value.bias', 'base.encoder.encoder.layer.1.attention.output.dense.weight', 'base.encoder.encoder.layer.1.attention.output.dense.bias', 'base.encoder.encoder.layer.1.attention.output.LayerNorm.weight', 'base.encoder.encoder.layer.1.attention.output.LayerNorm.bias', 'base.encoder.encoder.layer.1.intermediate.dense.weight', 'base.encoder.encoder.layer.1.intermediate.dense.bias', 'base.encoder.encoder.layer.1.output.dense.weight', 'base.encoder.encoder.layer.1.output.dense.bias', 'base.encoder.encoder.layer.1.output.LayerNorm.weight', 'base.encoder.encoder.layer.1.output.LayerNorm.bias', 'base.encoder.encoder.layer.2.attention.self.query.weight', 'base.encoder.encoder.layer.2.attention.self.query.bias', 'base.encoder.encoder.layer.2.attention.self.key.weight', 'base.encoder.encoder.layer.2.attention.self.key.bias', 'base.encoder.encoder.layer.2.attention.self.value.weight', 'base.encoder.encoder.layer.2.attention.self.value.bias', 'base.encoder.encoder.layer.2.attention.output.dense.weight', 'base.encoder.encoder.layer.2.attention.output.dense.bias', 'base.encoder.encoder.layer.2.attention.output.LayerNorm.weight', 'base.encoder.encoder.layer.2.attention.output.LayerNorm.bias', 'base.encoder.encoder.layer.2.intermediate.dense.weight', 'base.encoder.encoder.layer.2.intermediate.dense.bias', 'base.encoder.encoder.layer.2.output.dense.weight', 'base.encoder.encoder.layer.2.output.dense.bias', 'base.encoder.encoder.layer.2.output.LayerNorm.weight', 'base.encoder.encoder.layer.2.output.LayerNorm.bias', 'base.encoder.encoder.layer.3.attention.self.query.weight', 'base.encoder.encoder.layer.3.attention.self.query.bias', 'base.encoder.encoder.layer.3.attention.self.key.weight', 'base.encoder.encoder.layer.3.attention.self.key.bias', 'base.encoder.encoder.layer.3.attention.self.value.weight', 'base.encoder.encoder.layer.3.attention.self.value.bias', 'base.encoder.encoder.layer.3.attention.output.dense.weight', 'base.encoder.encoder.layer.3.attention.output.dense.bias', 'base.encoder.encoder.layer.3.attention.output.LayerNorm.weight', 'base.encoder.encoder.layer.3.attention.output.LayerNorm.bias', 'base.encoder.encoder.layer.3.intermediate.dense.weight', 'base.encoder.encoder.layer.3.intermediate.dense.bias', 'base.encoder.encoder.layer.3.output.dense.weight', 'base.encoder.encoder.layer.3.output.dense.bias', 'base.encoder.encoder.layer.3.output.LayerNorm.weight', 'base.encoder.encoder.layer.3.output.LayerNorm.bias', 'base.encoder.encoder.layer.4.attention.self.query.weight', 'base.encoder.encoder.layer.4.attention.self.query.bias', 'base.encoder.encoder.layer.4.attention.self.key.weight', 'base.encoder.encoder.layer.4.attention.self.key.bias', 'base.encoder.encoder.layer.4.attention.self.value.weight', 'base.encoder.encoder.layer.4.attention.self.value.bias', 'base.encoder.encoder.layer.4.attention.output.dense.weight', 'base.encoder.encoder.layer.4.attention.output.dense.bias', 'base.encoder.encoder.layer.4.attention.output.LayerNorm.weight', 'base.encoder.encoder.layer.4.attention.output.LayerNorm.bias', 'base.encoder.encoder.layer.4.intermediate.dense.weight', 'base.encoder.encoder.layer.4.intermediate.dense.bias', 'base.encoder.encoder.layer.4.output.dense.weight', 'base.encoder.encoder.layer.4.output.dense.bias', 'base.encoder.encoder.layer.4.output.LayerNorm.weight', 'base.encoder.encoder.layer.4.output.LayerNorm.bias', 'base.encoder.encoder.layer.5.attention.self.query.weight', 'base.encoder.encoder.layer.5.attention.self.query.bias', 'base.encoder.encoder.layer.5.attention.self.key.weight', 'base.encoder.encoder.layer.5.attention.self.key.bias', 'base.encoder.encoder.layer.5.attention.self.value.weight', 'base.encoder.encoder.layer.5.attention.self.value.bias', 'base.encoder.encoder.layer.5.attention.output.dense.weight', 'base.encoder.encoder.layer.5.attention.output.dense.bias', 'base.encoder.encoder.layer.5.attention.output.LayerNorm.weight', 'base.encoder.encoder.layer.5.attention.output.LayerNorm.bias', 'base.encoder.encoder.layer.5.intermediate.dense.weight', 'base.encoder.encoder.layer.5.intermediate.dense.bias', 'base.encoder.encoder.layer.5.output.dense.weight', 'base.encoder.encoder.layer.5.output.dense.bias', 'base.encoder.encoder.layer.5.output.LayerNorm.weight', 'base.encoder.encoder.layer.5.output.LayerNorm.bias', 'base.encoder.encoder.layer.6.attention.self.query.weight', 'base.encoder.encoder.layer.6.attention.self.query.bias', 'base.encoder.encoder.layer.6.attention.self.key.weight', 'base.encoder.encoder.layer.6.attention.self.key.bias', 'base.encoder.encoder.layer.6.attention.self.value.weight', 'base.encoder.encoder.layer.6.attention.self.value.bias', 'base.encoder.encoder.layer.6.attention.output.dense.weight', 'base.encoder.encoder.layer.6.attention.output.dense.bias', 'base.encoder.encoder.layer.6.attention.output.LayerNorm.weight', 'base.encoder.encoder.layer.6.attention.output.LayerNorm.bias', 'base.encoder.encoder.layer.6.intermediate.dense.weight', 'base.encoder.encoder.layer.6.intermediate.dense.bias', 'base.encoder.encoder.layer.6.output.dense.weight', 'base.encoder.encoder.layer.6.output.dense.bias', 'base.encoder.encoder.layer.6.output.LayerNorm.weight', 'base.encoder.encoder.layer.6.output.LayerNorm.bias', 'base.encoder.encoder.layer.7.attention.self.query.weight', 'base.encoder.encoder.layer.7.attention.self.query.bias', 'base.encoder.encoder.layer.7.attention.self.key.weight', 'base.encoder.encoder.layer.7.attention.self.key.bias', 'base.encoder.encoder.layer.7.attention.self.value.weight', 'base.encoder.encoder.layer.7.attention.self.value.bias', 'base.encoder.encoder.layer.7.attention.output.dense.weight', 'base.encoder.encoder.layer.7.attention.output.dense.bias', 'base.encoder.encoder.layer.7.attention.output.LayerNorm.weight', 'base.encoder.encoder.layer.7.attention.output.LayerNorm.bias', 'base.encoder.encoder.layer.7.intermediate.dense.weight', 'base.encoder.encoder.layer.7.intermediate.dense.bias', 'base.encoder.encoder.layer.7.output.dense.weight', 'base.encoder.encoder.layer.7.output.dense.bias', 'base.encoder.encoder.layer.7.output.LayerNorm.weight', 'base.encoder.encoder.layer.7.output.LayerNorm.bias', 'base.encoder.encoder.layer.8.attention.self.query.weight', 'base.encoder.encoder.layer.8.attention.self.query.bias', 'base.encoder.encoder.layer.8.attention.self.key.weight', 'base.encoder.encoder.layer.8.attention.self.key.bias', 'base.encoder.encoder.layer.8.attention.self.value.weight', 'base.encoder.encoder.layer.8.attention.self.value.bias', 'base.encoder.encoder.layer.8.attention.output.dense.weight', 'base.encoder.encoder.layer.8.attention.output.dense.bias', 'base.encoder.encoder.layer.8.attention.output.LayerNorm.weight', 'base.encoder.encoder.layer.8.attention.output.LayerNorm.bias', 'base.encoder.encoder.layer.8.intermediate.dense.weight', 'base.encoder.encoder.layer.8.intermediate.dense.bias', 'base.encoder.encoder.layer.8.output.dense.weight', 'base.encoder.encoder.layer.8.output.dense.bias', 'base.encoder.encoder.layer.8.output.LayerNorm.weight', 'base.encoder.encoder.layer.8.output.LayerNorm.bias', 'base.encoder.encoder.layer.9.attention.self.query.weight', 'base.encoder.encoder.layer.9.attention.self.query.bias', 'base.encoder.encoder.layer.9.attention.self.key.weight', 'base.encoder.encoder.layer.9.attention.self.key.bias', 'base.encoder.encoder.layer.9.attention.self.value.weight', 'base.encoder.encoder.layer.9.attention.self.value.bias', 'base.encoder.encoder.layer.9.attention.output.dense.weight', 'base.encoder.encoder.layer.9.attention.output.dense.bias', 'base.encoder.encoder.layer.9.attention.output.LayerNorm.weight', 'base.encoder.encoder.layer.9.attention.output.LayerNorm.bias', 'base.encoder.encoder.layer.9.intermediate.dense.weight', 'base.encoder.encoder.layer.9.intermediate.dense.bias', 'base.encoder.encoder.layer.9.output.dense.weight', 'base.encoder.encoder.layer.9.output.dense.bias', 'base.encoder.encoder.layer.9.output.LayerNorm.weight', 'base.encoder.encoder.layer.9.output.LayerNorm.bias', 'base.encoder.encoder.layer.10.attention.self.query.weight', 'base.encoder.encoder.layer.10.attention.self.query.bias', 'base.encoder.encoder.layer.10.attention.self.key.weight', 'base.encoder.encoder.layer.10.attention.self.key.bias', 'base.encoder.encoder.layer.10.attention.self.value.weight', 'base.encoder.encoder.layer.10.attention.self.value.bias', 'base.encoder.encoder.layer.10.attention.output.dense.weight', 'base.encoder.encoder.layer.10.attention.output.dense.bias', 'base.encoder.encoder.layer.10.attention.output.LayerNorm.weight', 'base.encoder.encoder.layer.10.attention.output.LayerNorm.bias', 'base.encoder.encoder.layer.10.intermediate.dense.weight', 'base.encoder.encoder.layer.10.intermediate.dense.bias', 'base.encoder.encoder.layer.10.output.dense.weight', 'base.encoder.encoder.layer.10.output.dense.bias', 'base.encoder.encoder.layer.10.output.LayerNorm.weight', 'base.encoder.encoder.layer.10.output.LayerNorm.bias', 'base.encoder.encoder.layer.11.attention.self.query.weight', 'base.encoder.encoder.layer.11.attention.self.query.bias', 'base.encoder.encoder.layer.11.attention.self.key.weight', 'base.encoder.encoder.layer.11.attention.self.key.bias', 'base.encoder.encoder.layer.11.attention.self.value.weight', 'base.encoder.encoder.layer.11.attention.self.value.bias', 'base.encoder.encoder.layer.11.attention.output.dense.weight', 'base.encoder.encoder.layer.11.attention.output.dense.bias', 'base.encoder.encoder.layer.11.attention.output.LayerNorm.weight', 'base.encoder.encoder.layer.11.attention.output.LayerNorm.bias', 'base.encoder.encoder.layer.11.intermediate.dense.weight', 'base.encoder.encoder.layer.11.intermediate.dense.bias', 'base.encoder.encoder.layer.11.output.dense.weight', 'base.encoder.encoder.layer.11.output.dense.bias', 'base.encoder.encoder.layer.11.output.LayerNorm.weight', 'base.encoder.encoder.layer.11.output.LayerNorm.bias', 'base.encoder.pooler.dense.weight', 'base.encoder.pooler.dense.bias', 'classifier.layers.0.weight', 'classifier.layers.0.bias', 'classifier.layers.1.weight', 'classifier.layers.1.bias', 'classifier.layers.1.running_mean', 'classifier.layers.1.running_var', 'classifier.layers.4.weight', 'classifier.layers.4.bias', 'classifier.layers.5.weight', 'classifier.layers.5.bias', 'classifier.layers.5.running_mean', 'classifier.layers.5.running_var', 'classifier.layers.8.weight', 'classifier.layers.8.bias']
+    f"Found keys that are in the model state dict but not in the checkpoint: {keys.missing_keys}"
+
+tests/utils/test_checkpoint.py::TestUtilsCheckpoint::test_finalize_and_resume_file
+tests/utils/test_checkpoint.py::TestUtilsCheckpoint::test_zoo_load
+  /home/cybertron/mmf/mmf/utils/checkpoint.py:338: UserWarning: 'optimizer' key is not present in the checkpoint asked to be loaded. Skipping.
+    "'optimizer' key is not present in the "
+
+tests/utils/test_checkpoint.py::TestUtilsCheckpoint::test_finalize_and_resume_file
+tests/utils/test_checkpoint.py::TestUtilsCheckpoint::test_zoo_load
+  /home/cybertron/mmf/mmf/utils/checkpoint.py:387: UserWarning: 'lr_scheduler' key is not present in the checkpoint asked to be loaded. Setting lr_scheduler's last_epoch to current_iteration.
+    "'lr_scheduler' key is not present in the "
+
+tests/utils/test_text.py::TestUtilsTextBeamSearch::test_beam_search
+  /home/cybertron/anaconda3/envs/mmf/lib/python3.7/site-packages/torch/_tensor.py:575: UserWarning: floor_divide is deprecated, and will be removed in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values.
+  To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor'). (Triggered internally at  /pytorch/aten/src/ATen/native/BinaryOps.cpp:467.)
+    return torch.floor_divide(self, other)
+
+-- Docs: https://docs.pytest.org/en/stable/warnings.html
+LEAKED 2047.6015625MB in tests/common/test_report.py::TestReport::test_to_device
+LEAKED 511.08203125MB in tests/models/test_albef.py::TestAlbefEncoders::test_vision_transformer
+LEAKED 569.88671875MB in tests/models/test_mmbt.py::TestMMBTTorchscript::test_finetune_model
+LEAKED 559.96484375MB in tests/models/test_mmbt.py::TestMMBTTorchscript::test_load_save_finetune_model
+LEAKED 303.05078125MB in tests/models/test_mmf_transformer.py::TestMMFTransformerConfig::test_mmft_from_build_model
+LEAKED 435.9296875MB in tests/models/test_mmf_transformer.py::TestMMFTransformerConfig::test_mmft_from_params
+LEAKED 52.140625MB in tests/models/test_mmf_transformer.py::TestMMFTransformer::test_preprocessing_with_resnet_encoder
+LEAKED 79.78125MB in tests/models/test_mmf_transformer.py::TestMMFTransformer::test_tie_mlm_head_weight_to_encoder
+LEAKED 184.0MB in tests/models/test_vilbert.py::TestViLBertTorchscript::test_load_save_pretrain_model
+LEAKED 138.10546875MB in tests/models/test_visual_bert.py::TestVisualBertPretraining::test_pretrained_model
+LEAKED 747.51953125MB in tests/models/interfaces/test_interfaces.py::TestModelInterfaces::test_mmbt_hm_interface
+LEAKED 89.50390625MB in tests/modules/test_encoders.py::TestEncoders::test_transformer_encoder
+LEAKED 280.5MB in tests/modules/test_encoders.py::TestEncoders::test_transformer_encoder_forward
+LEAKED 1266.140625MB in tests/trainers/lightning/test_checkpoint.py::TestLightningCheckpoint::test_load_resume_zoo_parity_with_mmf
+LEAKED 823.54296875MB in tests/trainers/lightning/test_checkpoint.py::TestLightningCheckpoint::test_load_zoo_with_pretrained_state_mapping_parity_with_mmf
+========================================================== short test summary info ===========================================================
+FAILED tests/configs/test_zoo_urls.py::TestConfigsForKeys::test_zoos - requests.exceptions.ConnectionError: HTTPConnectionPool(host='lisi1....
+==================================== 1 failed, 205 passed, 2 skipped, 1151 warnings in 1761.43s (0:29:21) ====================================
